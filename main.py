@@ -15,7 +15,6 @@ def main():
     predictions = rf.predict(test_features)
 
     print_model_stats(features_list, predictions, test_features, test_labels)
-
     print_feature_importances(features_list, rf)
 
 
@@ -31,7 +30,7 @@ def print_feature_importances(features_list, rf):
 
 
 def print_model_stats(features_list, predictions, test_features, test_labels):
-    baseline_errors = calc_aseline_errors(features_list, test_features, test_labels)
+    baseline_errors = calc_baseline_error(features_list, test_features, test_labels)
     print('Average baseline error: ', round(np.mean(baseline_errors), 2))
     # Calculate the absolute errors
     errors = abs(predictions - test_labels)
@@ -52,7 +51,7 @@ def train_model(train_features, train_labels):
     return rf
 
 
-def calc_aseline_errors(features_list, test_features, test_labels):
+def calc_baseline_error(features_list, test_features, test_labels):
     # The baseline predictions are the historical averages
     baseline_preds = test_features[:, features_list.index('average')]
     # Baseline errors, and display average baseline error
